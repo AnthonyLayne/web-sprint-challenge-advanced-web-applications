@@ -72,6 +72,7 @@ export default function App() {
     // If something goes wrong, check the status of the response:
     // if it's a 401 the token might have gone bad, and we should redirect to login.
     // Don't forget to turn off the spinner!
+    setSpinnerOn(true);
   };
 
   const postArticle = (article) => {
@@ -93,7 +94,7 @@ export default function App() {
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <React.StrictMode>
-      <Spinner />
+      <Spinner on={spinnerOn} />
       <Message />
       <button id="logout" onClick={logout}>
         Logout from app
