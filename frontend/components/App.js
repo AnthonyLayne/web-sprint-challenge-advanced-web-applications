@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, Routes, Route, useNavigate } from "react-router-dom";
+import axios from "axios";
 import Articles from "./Articles";
 import LoginForm from "./LoginForm";
 import Message from "./Message";
@@ -19,6 +20,7 @@ export default function App() {
   // ✨ Research `useNavigate` in React Router v.6
   const navigate = useNavigate();
   const redirectToLogin = () => {
+    navigate("/");
     /* ✨ implement */
   };
   const redirectToArticles = () => {
