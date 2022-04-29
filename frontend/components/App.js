@@ -77,10 +77,13 @@ export default function App() {
       .get(articlesUrl)
       .then((res) => {
         setMessage(res.data.message);
-        setArticles();
+        setArticles(res.data.articles);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        // if (res.request.status === 401) {
+        //   redirectToLogin();
+        // }
       })
       .finally(() => {
         setSpinnerOn(false);
@@ -107,7 +110,7 @@ export default function App() {
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <React.StrictMode>
       <Spinner on={spinnerOn} />
-      <Message />
+      <Message message={message} />
       <button id="logout" onClick={logout}>
         Logout from app
       </button>
@@ -129,8 +132,17 @@ export default function App() {
             path="articles"
             element={
               <>
-                <ArticleForm />
-                <Articles />
+                <ArticleForm
+                  postArticle={postArticle}
+                  setCurrentArticleId={setCurrentArticleId}
+                  updateArticle={updateArticle}
+                />
+                <Articles
+                  getArticles={getArticles}
+                  setCurrentArticleId={setCurrentArticleId}
+                  articles={articles}
+                  deleteArticle={deleteArticle}
+                />
               </>
             }
           />
