@@ -121,6 +121,8 @@ export default function App() {
     // ✨ implement
   };
 
+  const isEditing = Boolean(currentArticleId);
+
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <React.StrictMode>
@@ -157,6 +159,7 @@ export default function App() {
                   setCurrentArticleId={setCurrentArticleId}
                   articles={articles}
                   deleteArticle={deleteArticle}
+                  isEditing={isEditing}
                 />
               </>
             }
