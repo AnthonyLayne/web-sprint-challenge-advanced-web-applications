@@ -100,7 +100,9 @@ export default function App() {
     axiosWithAuth()
       .post(articlesUrl, article)
       .then((res) => {
-        console.log(res);
+        setArticles((prev) => [...prev, res.data.article]);
+        setMessage(res.data.message);
+        setCurrentArticleId(undefined);
       })
       .catch((err) => {
         console.error(err);
