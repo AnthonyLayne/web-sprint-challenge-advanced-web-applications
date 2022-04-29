@@ -24,6 +24,7 @@ export default function App() {
     /* ✨ implement */
   };
   const redirectToArticles = () => {
+    navigate("/articles");
     /* ✨ implement */
   };
 
