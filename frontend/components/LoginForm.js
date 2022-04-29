@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PT from "prop-types";
-import axios from "axios";
-
+//import axios from "axios";
+//import { useNavigate } from "react-router-dom";
 const initialFormValues = {
   username: "",
   password: "",
@@ -17,22 +17,16 @@ export default function LoginForm(props) {
 
   const onSubmit = (evt) => {
     evt.preventDefault();
+    login(values);
     // ✨ implement
-    axios
-      .post("http://localhost:9000/api/login", values)
-      .then((res) => {
-        console.log(res);
-        window.localStorage.setItem("token", res.data.token);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const isDisabled = () => {
     // ✨ implement
     // Trimmed username must be >= 3, and
+    if (values.username.trim().length < 3) return true;
     // trimmed password must be >= 8 for
+    if (values.password.trim().length < 8) return true;
     // the button to become enabled
   };
 
