@@ -122,6 +122,7 @@ export default function App() {
   };
 
   const isEditing = Boolean(currentArticleId);
+  const currentArticle = articles.find((article) => article.article_id === currentArticleId);
 
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
@@ -153,6 +154,7 @@ export default function App() {
                   postArticle={postArticle}
                   setCurrentArticleId={setCurrentArticleId}
                   updateArticle={updateArticle}
+                  currentArticle={currentArticle}
                 />
                 <Articles
                   getArticles={getArticles}
