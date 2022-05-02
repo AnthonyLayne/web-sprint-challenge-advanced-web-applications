@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PT from "prop-types";
 
 const initialFormValues = { title: "", text: "", topic: "" };
+const selectTopics = { React: true, Node: true, JavaScript: true };
 
 export default function ArticleForm(props) {
   const [values, setValues] = useState(initialFormValues);
@@ -37,6 +38,7 @@ export default function ArticleForm(props) {
   const isDisabled = () => {
     // ✨ implement
     // Make sure the inputs have some values
+    if (!selectTopics[values.topic]) return true;
     if (values.title.trim().length < 1 || values.text.trim().length < 1) return true;
     return false;
   };
