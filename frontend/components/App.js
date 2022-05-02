@@ -112,9 +112,30 @@ export default function App() {
       });
   };
 
-  const updateArticle = ({ article_id, article }) => {
+  const updateArticle = (article) => {
     // ✨ implement
     // You got this!
+    setSpinnerOn(true);
+    axiosWithAuth()
+      .put(`http://localhost:9000/api/articles/${article.article_id}`, article)
+      .then((res) => {
+        setMessage(res.data.message);
+        setArticles((prev) => {
+          prev.map((art) => {
+            if (art.article_id === article.article_id) {
+              return res.data.article;
+            }
+            return art;
+          });
+          setCurrentArticleId(undefined);
+        })
+          .catch((err) => {
+            console.error(err);
+          })
+          .finally(() => {
+            setSpinnerOn(false);
+          });
+      });
   };
 
   const deleteArticle = (article_id) => {
