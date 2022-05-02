@@ -45,7 +45,6 @@ export default function App() {
     axios
       .post(loginUrl, { username, password })
       .then((res) => {
-        console.log(res);
         window.localStorage.setItem("token", res.data.token);
         setMessage(res.data.message);
         redirectToArticles();
@@ -100,9 +99,9 @@ export default function App() {
     axiosWithAuth()
       .post(articlesUrl, article)
       .then((res) => {
-        setArticles((prev) => [...prev, res.data.article]);
         setMessage(res.data.message);
-        setCurrentArticleId(undefined);
+        setArticles((prev) => [...prev, res.data.article]);
+        //setCurrentArticleId(undefined);
       })
       .catch((err) => {
         console.error(err);
@@ -113,33 +112,42 @@ export default function App() {
   };
 
   const updateArticle = (article) => {
-    // ✨ implement
-    // You got this!
     setSpinnerOn(true);
     axiosWithAuth()
-      .put(`http://localhost:9000/api/articles/${article.article_id}`, article)
+      .put(`${articlesUrl}/${article.article_id}`, article)
       .then((res) => {
         setMessage(res.data.message);
-        setArticles((prev) => {
-          prev.map((art) => {
-            if (art.article_id === article.article_id) {
+        setArticles((prev) =>
+          prev.map((a) => {
+            if (a.article_id === article.article_id) {
               return res.data.article;
             }
-            return art;
-          });
-          setCurrentArticleId(undefined);
-        })
-          .catch((err) => {
-            console.error(err);
+            return a;
           })
-          .finally(() => {
-            setSpinnerOn(false);
-          });
+        );
+        setCurrentArticleId(undefined);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setSpinnerOn(false);
       });
   };
-
   const deleteArticle = (article_id) => {
-    // ✨ implement
+    setSpinnerOn(true);
+    axiosWithAuth()
+      .delete(`${articlesUrl}/${article_id}`)
+      .then((res) => {
+        setMessage(res.data.message);
+        setArticles((prev) => prev.filter((a) => a.article_id !== article_id));
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setSpinnerOn(false);
+      });
   };
 
   const isEditing = Boolean(currentArticleId);
